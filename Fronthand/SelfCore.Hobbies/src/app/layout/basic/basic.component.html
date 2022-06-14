@@ -1,0 +1,55 @@
+<layout-default [options]="options" [content]="contentTpl" [customError]="null">
+  <!-- 上方导航栏 github-->
+  <layout-default-header-item direction="left">
+    <a layout-default-header-item-trigger href="https://github.com/cx111219/01SelfCore.Hobbies" target="_blank">
+      <i nz-icon nzType="github"></i>
+    </a>
+  </layout-default-header-item>
+
+  <!-- 上方导航栏 user lock-->
+  <layout-default-header-item direction="left" hidden="mobile">
+    <a layout-default-header-item-trigger routerLink="/passport/lock">
+      <i nz-icon nzType="lock"></i>
+    </a>
+  </layout-default-header-item>
+
+  <!-- 上方导航栏 setting-->
+  <layout-default-header-item direction="right" hidden="mobile">
+    <div layout-default-header-item-trigger nz-dropdown [nzDropdownMenu]="settingsMenu" nzTrigger="click"
+      nzPlacement="bottomRight">
+      <i nz-icon nzType="setting"></i>
+    </div>
+    <nz-dropdown-menu #settingsMenu="nzDropdownMenu">
+      <div nz-menu style="width: 200px;">
+        <div nz-menu-item>
+          <header-fullscreen></header-fullscreen>
+        </div>
+        <!-- <div nz-menu-item>
+          <header-clear-storage></header-clear-storage>
+        </div>
+        <div nz-menu-item>
+          <header-i18n></header-i18n>
+        </div> -->
+      </div>
+    </nz-dropdown-menu>
+  </layout-default-header-item>
+
+  <!-- 上方导航栏 user-->
+  <layout-default-header-item direction="right">
+    <header-user></header-user>
+  </layout-default-header-item>
+ 
+  <!-- main content-->
+  <ng-template #contentTpl>
+    <router-outlet></router-outlet>
+    <div style="bottom:10px;">
+      <global-footer>
+        Copyright<i nz-icon nzType="copyright" class="mx-sm"></i>2022 <i nz-icon nzType="github"></i><a href="//github.com/cx111219/01SelfCore.Hobbies" target="_blank" class="mx-sm">CX</a>出品
+      </global-footer>
+    </div> 
+  </ng-template>
+</layout-default>
+
+<!-- 系统配置 -->
+<!-- <setting-drawer *ngIf="showSettingDrawer"></setting-drawer>
+<theme-btn></theme-btn> -->

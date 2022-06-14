@@ -9,6 +9,8 @@ import { environment } from './environments/environment';
 preloaderFinished();
 
 if (environment.production) {
+  console.log(environment.production);
+
   enableProdMode();
 }
 

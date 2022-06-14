@@ -19,11 +19,11 @@ const COMPONENTS: Array<Type<void>> = [
   UserRegisterResultComponent,
   // single pages
   CallbackComponent,
-  UserLockComponent,
+  UserLockComponent
 ];
 
 @NgModule({
   imports: [SharedModule, RouteRoutingModule],
-  declarations: COMPONENTS,
+  declarations: COMPONENTS
 })
 export class RoutesModule {}

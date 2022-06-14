@@ -1,0 +1,35 @@
+<!-- <page-header [action]="phActionTpl" [autoBreadcrumb]="true">
+  <ng-template #phActionTpl>
+    <button (click)="add()" nz-button nzType="primary">新建</button>
+  </ng-template>
+</page-header>
+<nz-card>
+  <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
+  <st #st [data]="url" [columns]="columns" [page]="{ position: 'both' }"></st>
+</nz-card> -->
+
+<!-- <page-header [title]="'查询表格'"></page-header> -->
+<nz-card [nzBordered]="false"> 
+  <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
+    <div nz-col nzMd="8" nzSm="24">
+      <nz-form-item>
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+          <input type="text" nz-input [(ngModel)]="query.keyword" name="keyword" placeholder="请输入检索关键字" id="keyword" />
+        </nz-input-group>
+        <ng-template #suffixIconButton>
+          <button nz-button nzSearch type="submit" [nzType]="'primary'" [nzLoading]="loading" (click)="getData()"><i nz-icon nzType="search"></i></button>
+        </ng-template>
+      </nz-form-item>
+    </div>
+  </div>
+  
+  <button nz-button (click)="add()" [nzType]="'primary'">
+    <i nz-icon nzType="plus"></i>
+    <span>新建</span>
+  </button>
+  <ng-container *ngIf="selectedRows.length > 0">
+    <button nz-button (click)="removeBatch()"> 删除</button>
+  </ng-container>
+  
+  <st #st [columns]="columns" [data]="data" [loading]="loading" (change)="stChange($event)" [total]="totalPager"></st>
+</nz-card>

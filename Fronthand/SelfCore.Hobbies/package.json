@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng s -o",
+    "start": "ng serve --port 4000 --open",
     "build": "npm run ng-high-memory build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -15,7 +15,6 @@
     "color-less": "ng-alain-plugin-theme -t=colorLess",
     "theme": "ng-alain-plugin-theme -t=themeCss",
     "icon": "ng g ng-alain:plugin icon",
-    "prepare": "husky install",
     "lint": "npm run lint:ts && npm run lint:style",
     "lint:ts": "ng lint --fix",
     "lint:style": "npx stylelint \"src/**/*.less\" --fix"
@@ -88,13 +87,5 @@
     "stylelint-config-standard": "^25.0.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.5.0",
     "stylelint-order": "^5.0.0"
-  },
-  "lint-staged": {
-    "(src)/**/*.{html,ts}": [
-      "eslint --fix"
-    ],
-    "(src)/**/*.less": [
-      "npm run lint:style"
-    ]
   }
 }

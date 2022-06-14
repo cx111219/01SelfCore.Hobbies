@@ -11,8 +11,8 @@ export const environment = {
   production: false,
   useHash: true,
   api: {
-    baseUrl: './',
-    refreshTokenEnabled: true,
+    baseUrl: 'http://locahost:5000/',
+    refreshTokenEnabled: false,
     refreshTokenType: 'auth-refresh'
   },
   modules: [DelonMockModule.forRoot({ data: MOCKDATA })]

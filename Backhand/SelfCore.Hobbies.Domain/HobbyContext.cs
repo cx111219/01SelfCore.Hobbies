@@ -112,6 +112,8 @@ namespace SelfCore.Hobbies.Domains
 
                 entity.Property(e => e.Headshot).HasComment("头像");
 
+                entity.Property(e => e.Headshot).HasComment("email");
+
                 entity.Property(e => e.IsAdmin).HasComment("是否管理员");
 
                 entity.Property(e => e.IsDeleted).HasComment("删除");

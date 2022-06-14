@@ -25,8 +25,8 @@ namespace SelfCore.Hobbies.Domains.Models
         public DateTime? Birthday { get; set; }
         [StringLength(200)]
         public string Headshot { get; set; }
-        [Column(TypeName = "bit(1)")]
-        
+        [StringLength(50)]
+        public string Email { get; set; }
         public bool? IsAdmin { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? Creatime { get; set; }

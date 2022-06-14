@@ -2,10 +2,10 @@ import { Environment } from '@delon/theme';
 
 export const environment = {
   production: true,
-  useHash: true,
-  api: {
-    baseUrl: './',
-    refreshTokenEnabled: true,
-    refreshTokenType: 'auth-refresh'
-  }
+  useHash: false
+  // api: {
+  //   baseUrl: 'http://locahost:5000/api/',
+  //   refreshTokenEnabled: true,
+  //   refreshTokenType: 'auth-refresh'
+  // }
 } as Environment;

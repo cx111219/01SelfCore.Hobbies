@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SelfCore.Hobbies.Domains;
 using SelfCore.Hobbies.Services.Interceptors;
@@ -12,6 +13,7 @@ namespace SelfCore.Hobbies.WebApi.Controllers
     [ApiController]
     [ExceptionHandler]
     [TraceLog]
+    [Authorize]
     public class BaseApiController<Entity> : QueryController<Entity> where Entity :class, IDeleted, Ikey, new()
     {
         public BaseApiController(HobbyContext context) : base(context)

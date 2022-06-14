@@ -5,13 +5,16 @@ import {
   HttpHeaders,
   HttpInterceptor,
   HttpRequest,
+  HttpResponse,
   HttpResponseBase
 } from '@angular/common/http';
+import { error } from '@angular/compiler/src/util';
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { ALAIN_I18N_TOKEN, _HttpClient } from '@delon/theme';
 import { environment } from '@env/environment';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BehaviorSubject, Observable, of, throwError, catchError, filter, mergeMap, switchMap, take } from 'rxjs';
 
@@ -170,34 +173,24 @@ export class DefaultInterceptor implements HttpInterceptor {
     this.goTo(this.tokenSrv.login_url!);
   }
 
+  // response 拦截处理
   private handleData(ev: HttpResponseBase, req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     this.checkStatus(ev);
     // 业务处理：一些通用操作
     switch (ev.status) {
       case 200:
-        // 业务层级错误处理，以下是假定restful有一套统一输出格式（指不管成功与否都有相应的数据格式）情况下进行处理
-        // 例如响应内容：
-        //  错误内容：{ status: 1, msg: '非法参数' }
-        //  正确内容：{ status: 0, response: {  } }
-        // 则以下代码片断可直接适用
-        // if (ev instanceof HttpResponse) {
-        //   const body = ev.body;
-        //   if (body && body.status !== 0) {
-        //     this.injector.get(NzMessageService).error(body.msg);
-        //     // 注意：这里如果继续抛出错误会被行254的 catchError 二次拦截，导致外部实现的 Pipe、subscribe 操作被中断，例如：this.http.get('/').subscribe() 不会触发
-        //     // 如果你希望外部实现，需要手动移除行254
-        //     return throwError({});
-        //   } else {
-        //     // 忽略 Blob 文件体
-        //     if (ev.body instanceof Blob) {
-        //        return of(ev);
-        //     }
-        //     // 重新修改 `body` 内容为 `response` 内容，对于绝大多数场景已经无须再关心业务状态码
-        //     return of(new HttpResponse(Object.assign(ev, { body: body.response })));
-        //     // 或者依然保持完整的格式
-        //     return of(ev);
-        //   }
-        // }
+        if (ev instanceof HttpResponse) {
+          const body = ev.body;
+          if (body && body.code !== 0) {
+            this.injector.get(NzMessageService).error(body.message);
+          } else {
+            // 忽略 Blob 文件体
+            if (ev.body instanceof Blob) {
+              return of(ev);
+            }
+            return of(Object.assign(ev, { body: body.data }));
+          }
+        }
         break;
       case 401:
         if (this.refreshTokenEnabled && this.refreshTokenType === 're-request') {
@@ -208,47 +201,33 @@ export class DefaultInterceptor implements HttpInterceptor {
       case 403:
       case 404:
       case 500:
-        // this.goTo(`/exception/${ev.status}?url=${req.urlWithParams}`);
+        this.goTo(`/exception/${ev.status}?url=${req.urlWithParams}`);
         break;
       default:
-        if (ev instanceof HttpErrorResponse) {
-          console.warn(
-            '未可知错误，大部分是由于后端不支持跨域CORS或无效配置引起，请参考 https://ng-alain.com/docs/server 解决跨域问题',
-            ev
-          );
-        }
         break;
     }
     if (ev instanceof HttpErrorResponse) {
+      console.warn(ev.message);
       return throwError(ev);
+      // return error(ev.message);
     } else {
       return of(ev);
     }
   }
 
-  private getAdditionalHeaders(headers?: HttpHeaders): { [name: string]: string } {
-    const res: { [name: string]: string } = {};
-    const lang = this.injector.get(ALAIN_I18N_TOKEN).currentLang;
-    if (!headers?.has('Accept-Language') && lang) {
-      res['Accept-Language'] = lang;
-    }
-
-    return res;
-  }
-
+  // request 拦截
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // 统一加上服务端前缀
-    let url = req.url;
-    if (!url.startsWith('https://') && !url.startsWith('http://')) {
-      const { baseUrl } = environment.api;
-      url = baseUrl + (baseUrl.endsWith('/') && url.startsWith('/') ? url.substring(1) : url);
-    }
-
-    const newReq = req.clone({ url, setHeaders: this.getAdditionalHeaders(req.headers) });
+    debugger;
+    const token = this.tokenSrv.get()?.token;
+    const newReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     return next.handle(newReq).pipe(
       mergeMap(ev => {
-        // 允许统一对请求错误处理
         if (ev instanceof HttpResponseBase) {
+          // 允许统一对请求错误处理
           return this.handleData(ev, newReq, next);
         }
         // 若一切都正常，则后续操作

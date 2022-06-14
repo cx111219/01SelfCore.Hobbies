@@ -19,7 +19,8 @@ module.exports = {
         'plugin:prettier/recommended'
       ],
       rules: {
-        'prettier/prettier': ['error', prettierConfig],
+        // 'prettier/prettier': ['error', prettierConfig],
+        'prettier/prettier': "off",
         'jsdoc/newline-after-description': 1,
         '@angular-eslint/component-class-suffix': [
           'error',
@@ -118,7 +119,8 @@ module.exports = {
       excludedFiles: ['*inline-template-*.component.html'],
       extends: ['plugin:prettier/recommended'],
       rules: {
-        'prettier/prettier': ['error', { parser: 'angular' }],
+        //'prettier/prettier': ['error', { parser: 'angular' }],
+        'prettier/prettier': "off",
         '@angular-eslint/template/eqeqeq': 'off'
       }
     }
