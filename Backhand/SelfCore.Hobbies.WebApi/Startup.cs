@@ -8,9 +8,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SelfCore.Hobbies.Domains;
+using SelfCore.Hobbies.Services.Helpers;
 using SelfCore.Hobbies.Services.Interceptors;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace SelfCore.Hobbies.WebApi
@@ -57,7 +59,7 @@ namespace SelfCore.Hobbies.WebApi
 
             // 中间件有助于检测和诊断 Entity Framework Core 迁移错误
             services.AddDatabaseDeveloperPageExceptionFilter();
-           
+            services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(x => x.MultipartBodyLengthLimit = int.MaxValue);
             services.AddSwaggerGen(c=>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SelfCore.Hobbies.WebApi", Version = "v1" });
@@ -80,13 +82,18 @@ namespace SelfCore.Hobbies.WebApi
                 app.UseExceptionHandler("/Error");
             }
             app.UseStaticFiles();
-            app.UseCors();
             app.UseRouting();
             app.UseCors("cxcore");
 
             app.UseAuthentication(); // 认证
             app.UseAuthorization(); // 授权
-
+            app.Use(async (context,next) => {
+                if (context.User.Identity.IsAuthenticated) {
+                    string userId = context.User.Claims.Where(t => t.Type == "userId").FirstOrDefault()?.Value;
+                    Web.UserId = string.IsNullOrWhiteSpace(userId)? null : int.Parse(userId);
+                }
+                await next();
+            });
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {

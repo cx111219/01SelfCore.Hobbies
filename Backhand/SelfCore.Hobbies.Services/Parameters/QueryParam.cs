@@ -12,7 +12,7 @@
         /// <summary>
         /// 类型检索
         /// </summary>
-        public int? Type { get; set; }
+        public int? Type { get; set; } = 0;
         public int? Size { get; set; } = 10;
         public int? Page { get; set; } = 1;
         public string Order { get; set; } = "Id desc";

@@ -21,10 +21,12 @@ namespace SelfCore.Hobbies.Domains.Models
         public sbyte? BookType { get; set; }
         [StringLength(200)]
         public string Picture { get; set; }
-        [Column(TypeName = "tinytext")]
+        [StringLength(200)]
+        public string Tags { get; set; }
+        [Column(TypeName = "text")]
         public string Brief { get; set; }
         [StringLength(200)]
-        public string Adress { get; set; }
+        public string Address { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? Creatime { get; set; }
         [Column(TypeName = "int(11)")]

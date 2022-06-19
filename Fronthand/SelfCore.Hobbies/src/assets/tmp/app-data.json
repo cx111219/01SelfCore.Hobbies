@@ -21,7 +21,7 @@
             "text": "书籍",
             "group": false,
             "icon": "anticon-book",
-            "link": "hobbies/books"
+            "link": "/hobbies/books"
           },
           {
             "text": "旅游",

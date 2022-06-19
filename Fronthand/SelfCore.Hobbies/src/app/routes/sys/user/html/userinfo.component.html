@@ -1,14 +1,25 @@
-<div class="modal-header">
-  <div class="modal-title">查看 {{ record.id }} 信息</div>
-</div>
-<nz-spin *ngIf="!i" class="modal-spin"></nz-spin>
-<div sv-container *ngIf="i">
-  <sv label="姓名">{{ i.owner }}</sv>
-  <sv label="会员卡号">32943898021309809423</sv>
-  <sv label="身份证">3321944288191034921</sv>
-  <sv label="联系方式">18112345678</sv>
-  <sv label="联系地址">曲丽丽 18100000000 浙江省杭州市西湖区黄姑山路工专路交叉路口</sv>
-</div>
+<div nz-row nzGutter="24" class="py-lg" style="text-align: left;margin: 0;">
+  <div nz-col nzMd="24" nzLg="7">
+    <nz-card [nzBordered]="false" class="mb-lg" [nzLoading]="!user">
+      <ng-container *ngIf="user">
+        <div class="avatar-holder">
+          <img src="{{ user.headshot }}"/>
+          <div class="name">{{ user.name }}</div>
+        </div>
+      </ng-container>
+    </nz-card>
+  </div>
+  <div nz-col nzMd="24" nzLg="17">
+    <div class="detail">
+      <p><i nz-icon nzType="star" nzTheme="outline" ></i>{{ user.code }}</p>
+      <p><i nz-icon nzType="like" nzTheme="outline" ></i>{{ user.gender ? "女生" : "男生" }}</p>
+      <p *ngIf = "user.birthday"><i nz-icon nzType="fire" nzTheme="outline" ></i>{{ user.birthday | date}}</p>
+      <p *ngIf = "user.contackNumber" ><i nz-icon nzType="whats-app" nzTheme="outline" ></i>{{ user.contackNumber }}</p>
+      <p *ngIf = "user.address"><i nz-icon nzType="sort-descending" nzTheme="outline" ></i>{{ user.address }}</p>
+      <p><i nz-icon nzType="user"></i>{{ user.signature }}</p>
+    </div>
+  </div>
+  </div>
 <div class="modal-footer">
   <button nz-button type="button" (click)="close()">关闭</button>
 </div>

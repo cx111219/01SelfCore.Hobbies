@@ -26,7 +26,7 @@ namespace SelfCore.Hobbies.Domains
 
                 entity.Property(e => e.Id).HasComment("主键");
 
-                entity.Property(e => e.Adress).HasComment("文档地址");
+                entity.Property(e => e.Address).HasComment("文档地址");
 
                 entity.Property(e => e.Author).HasComment("作者");
 

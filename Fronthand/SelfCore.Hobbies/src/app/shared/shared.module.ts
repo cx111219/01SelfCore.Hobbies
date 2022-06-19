@@ -5,12 +5,17 @@ import { RouterModule } from '@angular/router';
 import { AlainThemeModule } from '@delon/theme';
 import { DelonACLModule } from '@delon/acl';
 import { DelonFormModule } from '@delon/form';
-
+import { EllipsisModule } from '@delon/abc/ellipsis';
 import { SHARED_DELON_MODULES } from './shared-delon.module';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
+// ng-zorro-antd
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzListModule } from 'ng-zorro-antd/list';
+import { travelTypeFormatPipe } from './pips/travelTypePip';
+import { bookTypeFormatPipe } from './pips/bookTypePip';
 
 // #region third libs
-
 const THIRDMODULES: Array<Type<void>> = [];
 
 // #endregion
@@ -18,7 +23,7 @@ const THIRDMODULES: Array<Type<void>> = [];
 // #region your componets & directives
 
 const COMPONENTS: Array<Type<void>> = [];
-const DIRECTIVES: Array<Type<void>> = [];
+const DIRECTIVES: Array<Type<void>> = [travelTypeFormatPipe, bookTypeFormatPipe];
 
 // #endregion
 
@@ -31,6 +36,9 @@ const DIRECTIVES: Array<Type<void>> = [];
     AlainThemeModule.forChild(),
     DelonACLModule,
     DelonFormModule,
+    NzDatePickerModule,
+    NzSwitchModule,
+    NzListModule,
     ...SHARED_DELON_MODULES,
     ...SHARED_ZORRO_MODULES,
     // third libs
@@ -49,6 +57,9 @@ const DIRECTIVES: Array<Type<void>> = [];
     AlainThemeModule,
     DelonACLModule,
     DelonFormModule,
+    NzDatePickerModule,
+    EllipsisModule,
+    NzListModule,
     ...SHARED_DELON_MODULES,
     ...SHARED_ZORRO_MODULES,
     // third libs
@@ -58,4 +69,4 @@ const DIRECTIVES: Array<Type<void>> = [];
     ...DIRECTIVES
   ]
 })
-export class SharedModule { }
+export class SharedModule {}

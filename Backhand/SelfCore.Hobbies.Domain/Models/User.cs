@@ -26,7 +26,11 @@ namespace SelfCore.Hobbies.Domains.Models
         [StringLength(200)]
         public string Headshot { get; set; }
         [StringLength(50)]
-        public string Email { get; set; }
+        public string ContactNumber { get; set; }
+        [StringLength(200)]
+        public string Address { get; set; }
+        [StringLength(500)]
+        public string Signature { get; set; }
         public bool? IsAdmin { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? Creatime { get; set; }
@@ -35,6 +39,6 @@ namespace SelfCore.Hobbies.Domains.Models
         /// <summary>
         /// 是否删除
         /// </summary>
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

@@ -20,7 +20,7 @@ namespace SelfCore.Hobbies.WebApi.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("single")]
+        [HttpGet("single/{id}")]
         public virtual async Task<IActionResult> GetAsync(int id)
         {
             if (id == 0)
@@ -51,7 +51,8 @@ namespace SelfCore.Hobbies.WebApi.Controllers
         public async Task<IActionResult> GetPagerListAsync([FromQuery] QueryParam param)
         {
             var query = _context.Set<Entity>().AsQueryable();
-            QueryBefore(query, param);
+            // query = QueryBefore(query, param);
+            QueryBefore(ref query, param);
             var data = await QueryToPagerListAsync(query,param);
             return Success(data);
         }
@@ -61,25 +62,27 @@ namespace SelfCore.Hobbies.WebApi.Controllers
         /// </summary>
         /// <param name="query"></param>
         /// <param name="keyword"></param>
-        protected virtual void QueryBefore(IQueryable<Entity> query, QueryParam keyword)
+        protected virtual IQueryable<Entity> QueryBefore(IQueryable<Entity> query, QueryParam keyword)
         {
+            return query;
         }
-       
+
+        protected virtual void QueryBefore(ref IQueryable<Entity> query, QueryParam keyword) { }
+
         /// <summary>
         /// 获取列表 分页
         /// </summary>
         /// <param name="query"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        private async Task<PagerList<Entity>> QueryToPagerListAsync( IQueryable<Entity> query, QueryParam param)
+        private async Task<PagerList<Entity>> QueryToPagerListAsync(IQueryable<Entity> query, QueryParam param)
         {
             int count = query.Count();
-            var data = await query.Skip(param.Size.Value * (param.Page.Value - 1))
+            var data = await query.OrderBy(t => t.Id)
+                 .Skip(param.Size.Value * (param.Page.Value - 1))
                  .Take(param.Size.Value)
-                 .OrderBy(t=>t.Id)
                  .ToListAsync();
             return new PagerList<Entity>(count, param, data);
-            // return Success(new PagerList<Entity>(count,param,data));
         }
 
         /// <summary>

@@ -15,12 +15,10 @@ namespace SelfCore.Hobbies.WebApi.Controllers
         /// </summary>
         /// <param name="query"></param>
         /// <param name="param"></param>
-        protected override void QueryBefore(IQueryable<Food> query, QueryParam param)
+        protected override void QueryBefore(ref IQueryable<Food> query, QueryParam param)
         {
             if (!string.IsNullOrWhiteSpace(param.Keyword))
-            {
-                query = query.Where(t => t.Remark .Contains(param.Keyword));
-            }
+                query = query.Where(t => t.Remark.Contains(param.Keyword));
         }
     }
 }

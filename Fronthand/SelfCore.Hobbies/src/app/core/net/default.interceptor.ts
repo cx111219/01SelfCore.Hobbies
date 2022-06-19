@@ -209,7 +209,6 @@ export class DefaultInterceptor implements HttpInterceptor {
     if (ev instanceof HttpErrorResponse) {
       console.warn(ev.message);
       return throwError(ev);
-      // return error(ev.message);
     } else {
       return of(ev);
     }
@@ -217,7 +216,6 @@ export class DefaultInterceptor implements HttpInterceptor {
 
   // request 拦截
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    debugger;
     const token = this.tokenSrv.get()?.token;
     const newReq = req.clone({
       setHeaders: {

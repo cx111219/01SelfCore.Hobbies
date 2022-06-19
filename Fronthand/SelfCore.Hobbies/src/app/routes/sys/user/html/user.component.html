@@ -10,8 +10,8 @@
 
 <!-- <page-header [title]="'查询表格'"></page-header> -->
 <nz-card [nzBordered]="false"> 
-  <div nz-row [nzGutter]="{ xs: 8, sm: 8, md: 8, lg: 24, xl: 48, xxl: 48 }">
-    <div nz-col nzMd="8" nzSm="24">
+  <div nz-row nzJustify="center">
+    <div nz-col>
       <nz-form-item>
         <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
           <input type="text" nz-input [(ngModel)]="query.keyword" name="keyword" placeholder="请输入检索关键字" id="keyword" />

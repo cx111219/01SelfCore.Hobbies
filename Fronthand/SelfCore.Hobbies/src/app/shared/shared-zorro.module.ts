@@ -11,6 +11,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
@@ -19,6 +20,11 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzStepsModule } from 'ng-zorro-antd/steps';
+import { NzCarouselModule } from 'ng-zorro-antd/carousel';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzImageModule } from 'ng-zorro-antd/image';
 
 export const SHARED_ZORRO_MODULES = [
   NzFormModule,
@@ -42,4 +48,10 @@ export const SHARED_ZORRO_MODULES = [
   NzIconModule,
   NzCheckboxModule,
   NzSpinModule,
+  NzUploadModule,
+  NzPaginationModule,
+  NzStepsModule,
+  NzCarouselModule,
+  NzDividerModule,
+  NzImageModule
 ];

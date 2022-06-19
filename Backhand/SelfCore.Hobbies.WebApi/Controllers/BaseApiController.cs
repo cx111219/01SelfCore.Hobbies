@@ -6,6 +6,8 @@ using SelfCore.Hobbies.Services.Interceptors;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using SelfCore.Hobbies.Services.Helpers;
 
 namespace SelfCore.Hobbies.WebApi.Controllers
 {
@@ -30,6 +32,8 @@ namespace SelfCore.Hobbies.WebApi.Controllers
             if (entity == null)
                 return Fail("参数异常！");
             AddBeforAsync(entity);
+            entity.Creatime = System.DateTime.Now;
+            entity.Creator = Web.UserId;
             await _context.Set<Entity>().AddAsync(entity);
             await _context.SaveChangesAsync();
             return Success(entity);
@@ -52,11 +56,10 @@ namespace SelfCore.Hobbies.WebApi.Controllers
         public virtual async Task<IActionResult> UpdateAsync(int id , [FromBody] Entity entity) {
             if (id == 0)
                 return Fail("参数异常！");
-            var model = await _context.FindAsync<Entity>(id);
-            if (model == null)
-                return Fail("为找到该实体对象！");
-            UpdateBeforeAsync(model, entity);
-            _context.Entry(model).State = EntityState.Modified; //  防止多次更改？？
+            //var model = await _context.FindAsync<Entity>(id);
+            //if (model == null)
+            //    return Fail("为找到该实体对象！");            
+            UpdateBeforeAsync(entity);
             _context.Update(entity);
             await _context.SaveChangesAsync();
             return Success(entity);
@@ -67,7 +70,7 @@ namespace SelfCore.Hobbies.WebApi.Controllers
         /// </summary>
         /// <param name="oldEntity"></param>
         /// <param name="entity"></param>
-        protected virtual void UpdateBeforeAsync(Entity oldEntity, Entity entity) { }
+        protected virtual void UpdateBeforeAsync(Entity entity) { }
 
         /// <summary>
         /// 单个实体删除

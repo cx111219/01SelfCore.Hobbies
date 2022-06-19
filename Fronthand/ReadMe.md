@@ -1,6 +1,6 @@
-ng-alain
+# ng-alain
 
-环境准备
+## 环境准备
 
 确保`angular/cli`版本在13以上
 
@@ -10,7 +10,7 @@ npm uninstall -g @angular/cli  -- 卸载当前全局低版本
 npm install -g @angular/cli@latest  -- 全局安装最新版本
 ```
 
-
+## 项目基架
 
 ```
 -- 创建项目
@@ -23,4 +23,13 @@ npm install @angular/cli@latest
 -- 添加alain  默认安装后期可插拔
 ng add ng-alain 
 ```
+
+
+
+## 官网参考
+
+[ng-zorro]: https://ng.ant.design/components/icon/zh
+[ng-alain]: https://ng-alain.com/zh
+[ng-alain 页面效果参考]: https://ng-alain.surge.sh/
+[angular]: https://angular.cn/docs
 

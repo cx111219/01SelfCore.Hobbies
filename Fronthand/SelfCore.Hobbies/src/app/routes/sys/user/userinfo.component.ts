@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { _HttpClient } from '@delon/theme';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
-  selector: 'app-sys-userinfo',
-  templateUrl: './html/userinfo.component.html'
+  selector: 'app-sys-userInfo',
+  templateUrl: './html/userInfo.component.html',
+  styleUrls: ['./html/user.component.less']
 })
-export class SysUserinfoComponent implements OnInit {
-  record: any = {};
-  i: any;
-
+export class SysUserInfoComponent implements OnInit {
+  user: any;
+  @Input('id') id: any;
   constructor(private modal: NzModalRef, private msgSrv: NzMessageService, private http: _HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get(`/user/${this.record.id}`).subscribe(res => (this.i = res));
+    this.http.get(`api/User/single/${this.id}`).subscribe(res => (this.user = res));
   }
 
   close(): void {

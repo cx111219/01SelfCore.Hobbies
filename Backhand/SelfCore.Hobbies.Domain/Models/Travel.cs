@@ -16,6 +16,8 @@ namespace SelfCore.Hobbies.Domains.Models
         public sbyte TravelType { get; set; }
         [StringLength(100)]
         public string MianPic { get; set; }
+        [StringLength(2000)]
+        public string SubPics { get; set; }
         [Required]
         [StringLength(50)]
         public string Location { get; set; }

@@ -11,7 +11,7 @@
  Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 11/06/2022 13:02:20
+ Date: 19/06/2022 22:35:39
 */
 
 SET NAMES utf8mb4;
@@ -27,13 +27,14 @@ CREATE TABLE `books`  (
   `Author` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '作者',
   `BookType` tinyint(4) NULL DEFAULT NULL COMMENT '类型',
   `Picture` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '插图',
-  `Brief` tinytext CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '简介',
-  `Adress` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文档地址',
+  `Tags` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标签',
+  `Brief` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '简介',
+  `Address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文本地址',
   `Creatime` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `Creator` int(11) NULL DEFAULT NULL COMMENT '创建人',
   `IsDeleted` bit(1) NOT NULL COMMENT '删除',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '书籍' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '书籍' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for foods
@@ -59,6 +60,7 @@ CREATE TABLE `travels`  (
   `Id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `TravelType` tinyint(4) NOT NULL COMMENT '类型',
   `MianPic` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '主图',
+  `SubPics` varchar(2000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '附图',
   `Location` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '旅行地点',
   `TravelDate` date NOT NULL COMMENT '旅行时间',
   `Companion` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '同伴',
@@ -68,7 +70,7 @@ CREATE TABLE `travels`  (
   `Creator` int(11) NULL DEFAULT NULL COMMENT '创建人',
   `IsDeleted` bit(1) NOT NULL COMMENT '删除',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '旅游' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '旅游' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for users
@@ -83,10 +85,13 @@ CREATE TABLE `users`  (
   `Birthday` date NULL DEFAULT NULL COMMENT '生日',
   `Headshot` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
   `IsAdmin` bit(1) NULL DEFAULT NULL COMMENT '是否管理员',
+  `ContactNumber` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系方式',
+  `Address` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
+  `Signature` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '签名',
   `Creatime` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `Creator` int(11) NULL DEFAULT NULL COMMENT '创建人',
   `IsDeleted` bit(1) NULL DEFAULT NULL COMMENT '删除',
   PRIMARY KEY (`Id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
